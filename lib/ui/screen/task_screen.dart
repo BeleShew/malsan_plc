@@ -13,6 +13,7 @@ import '../../utils/thems.dart';
 import '../widget/icon_text_card.dart';
 import '../widget/search.dart';
 import 'package:malsan_plc/model/team_task.dart';
+import 'create_task.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -71,7 +72,7 @@ class TaskScreen extends StatelessWidget {
                   );
                 }
                 if (state is TeamTaskLoaded) {
-                  return _taskList(state, themeData);
+                  return _taskList(state, themeData,context);
                 } else {
                   return const Center(
                     child: Text("Currently the data is empty"),
@@ -85,7 +86,7 @@ class TaskScreen extends StatelessWidget {
     );
   }
 
-  Widget _taskList(TeamTaskLoaded state, ThemeData themeData) {
+  Widget _taskList(TeamTaskLoaded state, ThemeData themeData,contexts) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: state.response?.length ?? 0,
@@ -99,14 +100,14 @@ class TaskScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(MySize.size12 ?? 0),
               border: Border.all(color: AppColors.containerBoarder, width: 1),
             ),
-            child: _expansionList(state, index, themeData),
+            child: _expansionList(state, index, themeData,contexts),
           ),
         );
       },
     );
   }
 
-  Widget _expansionList(TeamTaskLoaded state, int index, ThemeData themeData) {
+  Widget _expansionList(TeamTaskLoaded state, int index, ThemeData themeData,context) {
     return ExpansionTile(
       initiallyExpanded: true,
       tilePadding: EdgeInsets.symmetric(horizontal: MySize.size8 ?? 0),
@@ -121,7 +122,7 @@ class TaskScreen extends StatelessWidget {
         SizedBox(
           height: MySize.size30,
         ),
-        _buildTaskButton(state, index, themeData),
+        _buildTaskButton(state, index, themeData,context),
       ],
     );
   }
@@ -351,12 +352,22 @@ class TaskScreen extends StatelessWidget {
 
   Widget _imageIcon(String sources) => Image.asset(sources);
 
-  Widget _buildTaskButton(TeamTaskLoaded state, int index, ThemeData themeData) {
+  Widget _buildTaskButton(TeamTaskLoaded state, int index, ThemeData themeData,context) {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: MySize.size12 ?? 0, vertical: MySize.size10 ?? 0),
       child: ElevatedButton(
-        onPressed: () async {},
+        onPressed: () async {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.white,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+            builder: (_) => const AddTaskSheet(),
+          );
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: AppColors.backgroundColor,
           backgroundColor: AppColors

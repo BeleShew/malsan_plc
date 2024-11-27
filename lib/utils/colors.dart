@@ -13,4 +13,5 @@ class AppColors {
   static const boarder = Color(0xFFD6D6D7);
   static const black = Color(0xFF2B2B2C);
   static const lightBlack = Color(0xFF515152);
+  static const mediumGrey = Color(0xFF7C7C7D);
 }

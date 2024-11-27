@@ -6,6 +6,18 @@ class TeamTask {
   final String? buttonText;
   TeamTask({this.name, this.tasks,this.buttonText});
 
+  TeamTask copyWith({
+    String? name,
+    List<TaskList>? tasks,
+    String? buttonText,
+  }) {
+    return TeamTask(
+      name: name ?? this.name,
+      tasks: tasks ?? this.tasks,
+      buttonText: buttonText ?? this.buttonText,
+    );
+  }
+
   factory TeamTask.fromJson(Map<String, dynamic> json) {
     return TeamTask(
       name: json['name'] as String?,
@@ -41,6 +53,26 @@ class TaskList {
     this.statusColor,
     this.dateColor,
   });
+
+  TaskList copyWith({
+    String? title,
+    String? date,
+    int? status,
+    bool? isDivider,
+    Color? dateColor,
+    Color? statusColor,
+    List<AssignedMember>? assignedMembers,
+  }) {
+    return TaskList(
+      title: title ?? this.title,
+      date: date ?? this.date,
+      status: status ?? this.status,
+      isDivider: isDivider ?? this.isDivider,
+      dateColor: dateColor ?? this.dateColor,
+      statusColor: statusColor ?? this.statusColor,
+      assignedMembers: assignedMembers ?? this.assignedMembers,
+    );
+  }
 
   factory TaskList.fromJson(Map<String, dynamic> json) {
     return TaskList(

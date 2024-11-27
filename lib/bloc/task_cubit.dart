@@ -24,4 +24,19 @@ class TeamTaskCubit extends Cubit<TeamTaskState> {
       emit(const TeamTaskError(message: "something_went_wrong"));
     }
   }
+
+  Future<void> addNewTeamTask(TaskList newTask) async {
+    try {
+      var updatedTasks = List<TaskList>.from(state.response?.first.tasks ?? [])
+        ..add(newTask);
+      var updatedTeamTask = state.response?.first.copyWith(tasks: updatedTasks);
+      var updatedResponse = List<TeamTask>.from(state.response ?? []);
+      if (updatedResponse.isNotEmpty && updatedTeamTask != null) {
+        updatedResponse[0] = updatedTeamTask;
+      }
+      emit(TeamTaskLoaded(data: updatedResponse));
+    } catch (e) {
+      emit(const TeamTaskError(message: "something_went_wrong"));
+    }
+  }
 }
