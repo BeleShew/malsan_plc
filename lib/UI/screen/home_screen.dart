@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:malsan_plc/UI/screen/comunication_screen.dart';
 import 'package:malsan_plc/UI/screen/profile_screen.dart';
 import 'package:malsan_plc/UI/screen/task_screen.dart';
+import 'package:malsan_plc/utils/colors.dart';
 
 import '../widget/app_bar.dart';
 import '../widget/custom_bottom_navbar.dart';
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
         body: SafeArea(
           child: Column(
               mainAxisSize: MainAxisSize.min,
